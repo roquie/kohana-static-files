@@ -49,6 +49,30 @@ class Kohana_StaticJs extends StaticFile {
 		$this->_add_as_docroot('js', $href, $condition);
 		return $this;
 	}
+	
+	/**
+	 * @param $href
+	 * @param null $condition
+	 * @return $this
+	 */
+	public function remove($href, $condition = null)
+	{
+		if (empty($this->_js[$condition])) {
+		    return;
+		}
+
+		$array =& $this->_js[$condition];
+		foreach ((array)$array as $key => $value) {
+		    if ($href === key($value)) {
+			unset($array[$key]);
+			break;
+		    }
+		}
+		unset($array);
+
+		return $this;
+	}
+	
 
 	/**
 	 * Adding inline script
